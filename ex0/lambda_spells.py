@@ -12,8 +12,36 @@
 #                                                                             #
 # *************************************************************************** #
 
+from typing import TypedDict, TypeAlias
 
-def artifact_sorter(artifacts: list[dict]) -> list[dict]:
+
+class Artifact(TypedDict):
+    name: str
+    power: int
+    type: str
+
+
+ArtifactList: TypeAlias = list[Artifact]
+
+
+class Mage(TypedDict):
+    name: str
+    power: int
+    element: str
+
+
+MageList: TypeAlias = list[Mage]
+
+SpellList: TypeAlias = list[str]
+
+
+class MageStats(TypedDict):
+    max_power: int
+    min_power: int
+    avg_power: float
+
+
+def artifact_sorter(artifacts: ArtifactList) -> ArtifactList:
     return sorted(
         artifacts,
         key=lambda artifact: artifact["power"],
@@ -21,21 +49,21 @@ def artifact_sorter(artifacts: list[dict]) -> list[dict]:
     )
 
 
-def power_filter(mages: list[dict], min_power: int) -> list[dict]:
+def power_filter(mages: MageList, min_power: int) -> MageList:
     return list(filter(
         lambda mage: mage["power"] >= min_power,
         mages
     ))
 
 
-def spell_transformer(spells: list[str]) -> list[str]:
+def spell_transformer(spells: SpellList) -> SpellList:
     return list(map(
         lambda spell: f"* {spell} *",
         spells
     ))
 
 
-def mage_stats(mages: list[dict]) -> dict:
+def mage_stats(mages: MageList) -> MageStats:
     max_power = max(mages, key=lambda mage: mage["power"])["power"]
 
     min_power = min(mages, key=lambda mage: mage["power"])["power"]
@@ -53,34 +81,34 @@ def mage_stats(mages: list[dict]) -> dict:
 
 def main() -> None:
 
-    artifacts = [
+    artifacts: ArtifactList = [
         {'name': 'Crystal Orb', 'power': 85, 'type': 'focus'},
         {'name': 'Fire Staff', 'power': 92, 'type': 'weapon'},
         {'name': 'Rusty Dagger', 'power': 15, 'type': 'weapon'}
     ]
 
-    mages = [
+    mages: MageList = [
         {'name': 'Alex', 'power': 150, 'element': 'Fire'},
         {'name': 'Jordan', 'power': 80, 'element': 'Water'},
         {'name': 'Riley', 'power': 220, 'element': 'Arcane'},
         {'name': 'Sam', 'power': 45, 'element': 'Earth'}
     ]
 
-    spells = ["fireball", "heal", "shield"]
+    spells: SpellList = ["fireball", "heal", "shield"]
 
-    single_artifact = artifacts[:1]
+    single_artifact: ArtifactList = artifacts[:1]
 
-    empty_list: list[dict] = []
+    empty_list: ArtifactList = []
 
     # --- Tests ---
     print("=== Testing artifact sorter ===")
-    for test_name, sorted_artifacts in [
+    for test_name, data in [
         ("Normal List", artifacts),
         ("Single Item", single_artifact),
         ("Empty List", empty_list)
     ]:
         print(f"\n--- {test_name} ---")
-        sorted_artifacts = artifact_sorter(sorted_artifacts)
+        sorted_artifacts = artifact_sorter(data)
 
         if len(sorted_artifacts) >= 2:
             print(

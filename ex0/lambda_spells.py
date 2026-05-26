@@ -127,7 +127,9 @@ def main() -> None:
             print("The artifact list is empty.")
 
     print("\nTesting power filter (min_power = 100)...")
+
     powerful_mages = power_filter(mages, 100)
+
     if powerful_mages:
         for mage in powerful_mages:
             print(f"{mage['name']} has {mage['power']} power.")

@@ -99,8 +99,8 @@ class MageGuild:
     @staticmethod
     def validate_mage_name(name: str) -> bool:
         return (
-            len(name) >= 3 and
-            all(char.isalpha() or char.isspace() for char in name)
+            len(name) >= 3
+            and all(char.isalpha() or char.isspace() for char in name)
         )
 
     @power_validator(10)

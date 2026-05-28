@@ -40,7 +40,7 @@ def spell_reducer(spells: list[int], operation: str) -> int:
     }
 
     if operation not in operations:
-        raise ValueError(f"Unknwon operation: {operation}")
+        raise ValueError(f"Unknown operation: {operation}")
 
     return functools.reduce(operations[operation], spells)
 

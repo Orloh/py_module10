@@ -15,7 +15,7 @@
 
 import functools
 import operator
-from typing import Callable, Any, cast
+from typing import Callable, Any, cast, Literal
 
 
 def partial_enchanter(
@@ -28,7 +28,11 @@ def partial_enchanter(
     }
 
 
-def spell_reducer(spells: list[int], operation: str) -> int:
+def spell_reducer(
+        spells: list[int],
+        operation: Literal["add", "multiply", "max", "min"]
+) -> int:
+
     if not spells:
         return 0
 

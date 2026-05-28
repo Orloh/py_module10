@@ -84,10 +84,10 @@ def spell_dispatcher() -> Callable[[Any], str]:
 def main() -> None:
     print("=== Testing partial enchanter ===")
 
-    def base_enchant(power: int, element: str, target: str) -> str:
+    def base_enchantment(power: int, element: str, target: str) -> str:
         return f"{element} {target} (power level: {power})"
 
-    enchantments = partial_enchanter(base_enchant)
+    enchantments = partial_enchanter(base_enchantment)
 
     def cast_enchantment(element: str, target: str) -> str:
 
@@ -114,11 +114,14 @@ def main() -> None:
     print()
 
     print("=== Testing memoized fibonacci ===")
-
-    print(f"Fib(0): {memoized_fibonacci(0)}")
-    print(f"Fib(1): {memoized_fibonacci(1)}")
-    print(f"Fib(10): {memoized_fibonacci(10)}")
-    print(f"Fib(15): {memoized_fibonacci(15)}")
+    try:
+        print(f"Fib(0): {memoized_fibonacci(0)}")
+        print(f"Fib(1): {memoized_fibonacci(1)}")
+        print(f"Fib(10): {memoized_fibonacci(10)}")
+        print(f"Fib(15): {memoized_fibonacci(15)}")
+        print(f"Fib(-3): {memoized_fibonacci(-3)}")
+    except ValueError as e:
+        print(e)
     print()
 
     print("=== \nTesting spell dispatcher ===")
